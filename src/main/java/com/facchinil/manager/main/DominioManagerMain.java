@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.facchinil.dto.DominioDTO;
 import com.facchinil.manager.DominioManager;
-import com.facchinil.mapper.DominioMapper;
+import com.facchinil.mapper.main.DominioMapper;
 import com.facchinil.repository.DominioRepository;
 import com.facchinil.utils.FrequenzableUtils;
 

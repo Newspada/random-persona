@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.facchinil.dto.CognomeDTO;
 import com.facchinil.manager.CognomeManager;
-import com.facchinil.mapper.CognomeMapper;
+import com.facchinil.mapper.main.CognomeMapper;
 import com.facchinil.repository.CognomeRepository;
 import com.facchinil.utils.FrequenzableUtils;
 

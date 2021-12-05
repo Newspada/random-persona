@@ -11,7 +11,7 @@ import com.facchinil.dto.IndirizzoDTO;
 import com.facchinil.entity.Indirizzo;
 import com.facchinil.manager.ComuneManager;
 import com.facchinil.manager.IndirizzoManager;
-import com.facchinil.mapper.IndirizzoMapper;
+import com.facchinil.mapper.main.IndirizzoMapper;
 import com.facchinil.repository.IndirizzoRepository;
 import com.facchinil.utils.FrequenzableUtils;
 

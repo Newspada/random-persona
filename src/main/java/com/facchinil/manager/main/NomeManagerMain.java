@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.facchinil.dto.NomeDTO;
 import com.facchinil.manager.NomeManager;
-import com.facchinil.mapper.NomeMapper;
+import com.facchinil.mapper.main.NomeMapper;
 import com.facchinil.repository.NomeRepository;
 import com.facchinil.utils.FrequenzableUtils;
 

@@ -1,4 +1,4 @@
-package com.facchinil.mapper;
+package com.facchinil.mapper.main;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.facchinil.dto.ComuneDTO;
 import com.facchinil.entity.Comune;
+import com.facchinil.mapper.Mapper;
 import com.google.common.collect.Lists;
 
 @Component

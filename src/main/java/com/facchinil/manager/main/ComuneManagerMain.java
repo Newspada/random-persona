@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.facchinil.dto.ComuneDTO;
 import com.facchinil.manager.ComuneManager;
-import com.facchinil.mapper.ComuneMapper;
+import com.facchinil.mapper.main.ComuneMapper;
 import com.facchinil.repository.ComuneRepository;
 import com.facchinil.utils.FrequenzableUtils;
 
