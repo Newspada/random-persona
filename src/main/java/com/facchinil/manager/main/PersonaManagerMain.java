@@ -8,15 +8,11 @@ import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 
-import com.facchinil.dto.ComuneDTO;
-import com.facchinil.dto.IndirizzoDTO;
 import com.facchinil.dto.NomeDTO;
 import com.facchinil.dto.PersonaDTO;
 import com.facchinil.manager.CognomeManager;
-import com.facchinil.manager.ComuneManager;
 import com.facchinil.manager.DominioManager;
 import com.facchinil.manager.IndirizzoManager;
 import com.facchinil.manager.NomeManager;
@@ -24,6 +20,9 @@ import com.facchinil.manager.PersonaManager;
 
 @Component
 public class PersonaManagerMain implements PersonaManager {
+	
+	private static final Long DATA_MIN_EPOCH_DAY = LocalDate.of(1950, Month.JANUARY, 1).toEpochDay();
+	private static final Long DATA_MAX_EPOCH_DAY = LocalDate.of(2003, Month.JANUARY, 1).toEpochDay();
 	
 	@Autowired
 	private NomeManager nomeManager;
@@ -106,9 +105,7 @@ public class PersonaManagerMain implements PersonaManager {
 	}
 
 	private Date getRandomData() {
-		long dataMin = LocalDate.of(1950, Month.JANUARY, 1).toEpochDay();
-		long dataMax = LocalDate.of(2003, Month.JANUARY, 1).toEpochDay();
-		return Date.from(LocalDate.ofEpochDay(ThreadLocalRandom.current().nextLong(dataMin, dataMax))
+		return Date.from(LocalDate.ofEpochDay(ThreadLocalRandom.current().nextLong(DATA_MIN_EPOCH_DAY, DATA_MAX_EPOCH_DAY))
 				.atStartOfDay()
 				.atZone(ZoneId.systemDefault())
 			    .toInstant());
