@@ -1,6 +1,8 @@
 package com.facchinil.mapper;
 
-public interface Mapper<A, B> {
+import com.facchinil.dto.DataTransferObject;
+
+public interface Mapper<A extends DataTransferObject, B> {
 	A toDTO(B entity);
 	B toEntity (A dto);
 }

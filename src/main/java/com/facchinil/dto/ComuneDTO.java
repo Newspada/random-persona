@@ -1,11 +1,14 @@
 package com.facchinil.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
 public class ComuneDTO extends Frequenzable {
 	private static final long serialVersionUID = 885922026049859020L;
 	
+	@JsonIgnore
 	private Long id;
 	private String comune;
 	private String provincia;

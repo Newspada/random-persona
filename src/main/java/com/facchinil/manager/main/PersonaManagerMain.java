@@ -51,57 +51,56 @@ public class PersonaManagerMain implements PersonaManager {
 	}
 
 	private String getRandomEmail(String nome, String cognome, Integer annoNascita) {
-		String email = "";
+		StringBuilder email = new StringBuilder();
+		email.append(getRandomUserName(nome, cognome, annoNascita));
+		email.append("@");
+		email.append(dominioManager.getRandom().getDominio());
+		return email.toString().toLowerCase().replaceAll("[ ']", "");
+	}
+	
+	private String getRandomUserName(String nome, String cognome, Integer annoNascita) {
 		switch (ThreadLocalRandom.current().nextInt(10)) {
 		case 0:
-			email += nome + "." + cognome;
-			break;
+			return nome + "." + cognome;
 		case 1:
-			email += cognome + "." + nome;
-			break;
+			return cognome + "." + nome;
 		case 3:
-			email += nome + cognome + annoNascita;
-			break;
+			return nome + cognome + annoNascita;
 		case 4:
-			email += cognome + nome + annoNascita;
-			break;
+			return cognome + nome + annoNascita;
 		case 5:
-			email += nome.charAt(0) + cognome + annoNascita;
-			break;
+			return nome.charAt(0) + cognome + annoNascita;
 		case 6:
-			email += nome.charAt(0) + cognome + annoNascita.toString().substring(2);
-			break;
+			return nome.charAt(0) + cognome + annoNascita.toString().substring(2);
 		case 7:
-			email += nome + cognome + annoNascita.toString().substring(2);
-			break;
+			return nome + cognome + annoNascita.toString().substring(2);
 		case 8:
-			email += cognome + nome + annoNascita.toString().substring(2);
-			break;
+			return cognome + nome + annoNascita.toString().substring(2);
 		case 9:
-			email += nome + "." + cognome + "." + annoNascita;
-			break;
+			return nome + "." + cognome + "." + annoNascita;
+		default:
+			throw new IllegalStateException();
 		}
-		email += "@";
-		email += dominioManager.getRandom().getDominio();
-		return email.toLowerCase().replaceAll("[ ']", "");
 	}
-
+	
 	private String getRandomNumero(String prefisso) {
-		String numeroTelefono = "";
+		StringBuilder numeroTelefono = new StringBuilder();
 		switch (ThreadLocalRandom.current().nextInt(2)) {
 		case 0:
-			numeroTelefono += "3";
-			numeroTelefono += String.valueOf(ThreadLocalRandom.current().nextInt(6) + 2);
+			numeroTelefono.append("3");
+			numeroTelefono.append(ThreadLocalRandom.current().nextInt(6) + 2);
 			for (int i = 0; i < 8; i++)
-				numeroTelefono += String.valueOf(ThreadLocalRandom.current().nextInt(10));
+				numeroTelefono.append(ThreadLocalRandom.current().nextInt(10));
 			break;
 		case 1:
-			numeroTelefono += prefisso;
+			numeroTelefono.append(prefisso);
 			for (int i = 0; i < 9 - prefisso.length(); i++)
-				numeroTelefono += String.valueOf(ThreadLocalRandom.current().nextInt(10));
+				numeroTelefono.append(ThreadLocalRandom.current().nextInt(10));
 			break;
+		default:
+			throw new IllegalStateException();
 		}
-		return numeroTelefono;
+		return numeroTelefono.toString();
 	}
 
 	private Date getRandomData() {
