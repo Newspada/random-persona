@@ -59,24 +59,24 @@ public class PersonaManagerMain implements PersonaManager {
 	}
 	
 	private String getRandomUserName(String nome, String cognome, Integer annoNascita) {
-		switch (ThreadLocalRandom.current().nextInt(10)) {
+		switch (ThreadLocalRandom.current().nextInt(9)) {
 		case 0:
 			return nome + "." + cognome;
 		case 1:
 			return cognome + "." + nome;
-		case 3:
+		case 2:
 			return nome + cognome + annoNascita;
-		case 4:
+		case 3:
 			return cognome + nome + annoNascita;
-		case 5:
+		case 4:
 			return nome.charAt(0) + cognome + annoNascita;
-		case 6:
+		case 5:
 			return nome.charAt(0) + cognome + annoNascita.toString().substring(2);
-		case 7:
+		case 6:
 			return nome + cognome + annoNascita.toString().substring(2);
-		case 8:
+		case 7:
 			return cognome + nome + annoNascita.toString().substring(2);
-		case 9:
+		case 8:
 			return nome + "." + cognome + "." + annoNascita;
 		default:
 			throw new IllegalStateException();
