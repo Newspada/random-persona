@@ -1,6 +1,7 @@
 package com.facchinil.manager.main;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.PostConstruct;
 
@@ -27,6 +28,13 @@ public class ComuneManagerMain implements ComuneManager {
 	@PostConstruct
 	private void onInit() {
 		comuni = comuneMapper.toDTOs(comuneRepository.findAll());
+        comuni.forEach(comune -> {
+            StringBuilder cap = new StringBuilder(comune.getCap().replaceAll("[xX]", ""));
+            Integer remainder = 5 - cap.length();
+            for (int i = 0; i < remainder; i++)
+                cap.append(ThreadLocalRandom.current().nextInt(10));
+            comune.setCap(cap.toString());
+        });
 		FrequenzableUtils.fillFrequenzaCumulativa(comuni);
 	}
 	
