@@ -6,13 +6,14 @@ import org.springframework.stereotype.Component;
 
 import com.facchinil.dto.IndirizzoDTO;
 import com.facchinil.entity.Indirizzo;
+import com.facchinil.manager.ComuneManager;
 import com.facchinil.mapper.Mapper;
 
 @Component
 public class IndirizzoMapper implements Mapper<IndirizzoDTO, Indirizzo> {
 	
 	@Autowired
-	private ComuneMapper comuneMapper;
+	private ComuneManager comuneManager;
 	
 	@Override
 	public IndirizzoDTO toDTO(Indirizzo entity) {
@@ -20,7 +21,7 @@ public class IndirizzoMapper implements Mapper<IndirizzoDTO, Indirizzo> {
 		dto.setToponimo(entity.getToponimo());
 		dto.setDenominazione(entity.getDenominazione());
 		dto.setFrequenza(entity.getFrequenza());
-		dto.setComune(comuneMapper.toDTO(entity.getComune()));
+		dto.setComune(comuneManager.getById(entity.getComune().getId()));
 		return dto;
 	}
 	

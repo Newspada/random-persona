@@ -43,4 +43,10 @@ public class Comune {
 	@NotNull
 	@Column(name = "FREQUENZA")
 	private Integer frequenza;
+	
+	@Column(name = "LATITUDINE")
+	private Double latitudine;
+	
+	@Column(name = "LONGITUDINE")
+	private Double longitudine;
 }
