@@ -15,4 +15,5 @@ public class ComuneDTO extends Frequenzable {
 	private String regione;
 	private String prefisso;
 	private String cap;
+	private CoordinateDTO coordinate;
 }
