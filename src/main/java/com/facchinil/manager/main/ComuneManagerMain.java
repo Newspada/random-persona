@@ -46,7 +46,7 @@ public class ComuneManagerMain implements ComuneManager {
 	
 	@Override
 	public ComuneDTO getById(Long id) {
-		return comuneMapper.toDTO(comuneRepository.getById(id));
+		return comuni.stream().filter(c -> id.equals(c.getId())).findFirst().orElseThrow(() -> new IllegalStateException("Missing comune with id =" + id));
 	}
 	
 	@Override
