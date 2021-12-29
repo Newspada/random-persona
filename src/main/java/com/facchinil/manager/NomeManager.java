@@ -7,4 +7,6 @@ public interface NomeManager {
 	NomeDTO getRandom();
 
 	NomeDTO getRandomByYear(Integer annoNascita);
+
+	NomeDTO getRandomByYearAndSesso(Integer year, String sesso);
 }

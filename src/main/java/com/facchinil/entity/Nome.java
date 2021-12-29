@@ -28,7 +28,7 @@ public class Nome {
 	private String sesso;
 	
 	@Column(name = "FASCIA")
-	private Integer fascia;
+	private String fascia;
 	
 	@NotNull
 	private Integer frequenza;

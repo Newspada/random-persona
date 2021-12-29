@@ -37,7 +37,7 @@ public class IndirizzoManagerMain implements IndirizzoManager {
 	}
 	
 	@Override
-	public IndirizzoDTO getRandom(){
+	public IndirizzoDTO getRandom() {
 		ComuneDTO comune = null;
 		IndirizzoDTO indirizzo = null;
 		while(indirizzo == null){

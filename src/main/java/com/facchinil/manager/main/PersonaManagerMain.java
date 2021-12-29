@@ -2,6 +2,7 @@ package com.facchinil.manager.main;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Year;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,19 +11,18 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.facchinil.dto.FasciaEtaDTO;
 import com.facchinil.dto.NomeDTO;
 import com.facchinil.dto.PersonaDTO;
 import com.facchinil.manager.CognomeManager;
 import com.facchinil.manager.DominioManager;
+import com.facchinil.manager.FasciaEtaManager;
 import com.facchinil.manager.IndirizzoManager;
 import com.facchinil.manager.NomeManager;
 import com.facchinil.manager.PersonaManager;
 
 @Component
 public class PersonaManagerMain implements PersonaManager {
-	
-	private static final Long DATA_MIN_EPOCH_DAY = LocalDate.of(1950, Month.JANUARY, 1).toEpochDay();
-	private static final Long DATA_MAX_EPOCH_DAY = LocalDate.of(2003, Month.JANUARY, 1).toEpochDay();
 	
 	@Autowired
 	private NomeManager nomeManager;
@@ -36,14 +36,18 @@ public class PersonaManagerMain implements PersonaManager {
 	@Autowired
 	private DominioManager dominioManager;
 	
+	@Autowired
+	private FasciaEtaManager fasciaManager;
+	
 	@Override
 	public PersonaDTO getRandom() {
 		PersonaDTO persona = new PersonaDTO();
-		persona.setDataNascita(getRandomData());
-		NomeDTO nome = nomeManager.getRandomByYear(getYear(persona.getDataNascita()));
+		FasciaEtaDTO fascia = fasciaManager.getRandom();
+		persona.setDataNascita(getRandomData(fascia));
+		persona.setSesso(getRandomSesso(fascia));
+		NomeDTO nome = nomeManager.getRandomByYearAndSesso(getYear(persona.getDataNascita()), persona.getSesso());
 		persona.setNome(nome.getNome());
 		persona.setCognome(cognomeManager.getRandom().getCognome());
-		persona.setSesso(nome.getSesso());
 		persona.setIndirizzo(indirizzoManager.getRandom());
 		persona.setEmail(getRandomEmail(persona.getNome(), persona.getCognome(), getYear(persona.getDataNascita())));
 		persona.setNumeroTelefono(getRandomNumero(persona.getIndirizzo().getComune().getPrefisso()));
@@ -103,11 +107,22 @@ public class PersonaManagerMain implements PersonaManager {
 		return numeroTelefono.toString();
 	}
 
-	private Date getRandomData() {
-		return Date.from(LocalDate.ofEpochDay(ThreadLocalRandom.current().nextLong(DATA_MIN_EPOCH_DAY, DATA_MAX_EPOCH_DAY))
-				.atStartOfDay()
-				.atZone(ZoneId.systemDefault())
-			    .toInstant());
+	private Date getRandomData(FasciaEtaDTO fascia) {
+		String[] parts = fascia.getFascia().split("-");
+		Integer etaMin = Integer.parseInt(parts[0]);
+		Integer etaMax = Integer.parseInt(parts[1]);
+		Long epochMin = LocalDate.of(Year.now().getValue()-etaMax, Month.JANUARY, 1).toEpochDay();
+	    Long epochMax = LocalDate.of(Year.now().getValue()-etaMin, Month.JANUARY, 1).toEpochDay();
+        return Date.from(LocalDate.ofEpochDay(ThreadLocalRandom.current().nextLong(epochMin, epochMax))
+                .atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
+	}
+	
+	private String getRandomSesso(FasciaEtaDTO fascia) {
+		if(ThreadLocalRandom.current().nextInt(fascia.getFrequenza()) < fascia.getFrequenzaMaschi())
+			return "M";
+		return "F";
 	}
 	
 	private Integer getYear(Date date) {

@@ -8,5 +8,5 @@ public class NomeDTO extends Frequenzable {
 	
 	private String nome;
 	private String sesso;
-	private Integer fascia;
+	private String fascia;
 }
