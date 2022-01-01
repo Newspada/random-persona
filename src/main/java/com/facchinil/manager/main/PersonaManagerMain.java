@@ -14,12 +14,16 @@ import org.springframework.stereotype.Component;
 import com.facchinil.dto.FasciaEtaDTO;
 import com.facchinil.dto.NomeDTO;
 import com.facchinil.dto.PersonaDTO;
+import com.facchinil.es.ComuneES;
+import com.facchinil.es.IndirizzoES;
+import com.facchinil.es.PersonaES;
 import com.facchinil.manager.CognomeManager;
 import com.facchinil.manager.DominioManager;
 import com.facchinil.manager.FasciaEtaManager;
 import com.facchinil.manager.IndirizzoManager;
 import com.facchinil.manager.NomeManager;
 import com.facchinil.manager.PersonaManager;
+import com.facchinil.repository.PersonaRepositoryES;
 
 @Component
 public class PersonaManagerMain implements PersonaManager {
@@ -37,8 +41,11 @@ public class PersonaManagerMain implements PersonaManager {
 	private DominioManager dominioManager;
 	
 	@Autowired
+	private PersonaRepositoryES personaRepositoryES;
+
+	@Autowired
 	private FasciaEtaManager fasciaManager;
-	
+
 	@Override
 	public PersonaDTO getRandom() {
 		PersonaDTO persona = new PersonaDTO();
@@ -51,7 +58,29 @@ public class PersonaManagerMain implements PersonaManager {
 		persona.setIndirizzo(indirizzoManager.getRandom());
 		persona.setEmail(getRandomEmail(persona.getNome(), persona.getCognome(), getYear(persona.getDataNascita())));
 		persona.setNumeroTelefono(getRandomNumero(persona.getIndirizzo().getComune().getPrefisso()));
+		saveES(persona);
 		return persona;
+	}
+
+	private void saveES(PersonaDTO persona) {
+		PersonaES personaES = new PersonaES();
+		personaES.setNome(persona.getNome());
+		personaES.setCognome(persona.getCognome());
+		personaES.setSesso(persona.getSesso());
+		personaES.setEmail(persona.getEmail());
+		personaES.setNumeroTelefono(persona.getNumeroTelefono());
+		IndirizzoES indirizzoES = new IndirizzoES();
+		indirizzoES.setToponimo(persona.getIndirizzo().getToponimo());
+		indirizzoES.setDenominazione(persona.getIndirizzo().getDenominazione());
+		ComuneES comuneES = new ComuneES();
+		comuneES.setComune(persona.getIndirizzo().getComune().getComune());
+		comuneES.setCap(persona.getIndirizzo().getComune().getCap());
+		comuneES.setPrefisso(persona.getIndirizzo().getComune().getPrefisso());
+		comuneES.setProvincia(persona.getIndirizzo().getComune().getProvincia());
+		comuneES.setRegione(persona.getIndirizzo().getComune().getRegione());
+		indirizzoES.setComune(comuneES);
+		personaES.setIndirizzo(indirizzoES);
+		personaRepositoryES.save(personaES);
 	}
 
 	private String getRandomEmail(String nome, String cognome, Integer annoNascita) {
