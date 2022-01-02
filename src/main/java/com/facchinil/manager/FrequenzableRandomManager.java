@@ -9,7 +9,7 @@ public interface FrequenzableRandomManager<T extends Frequenzable> {
 	
 	List<T> getDTOList();
 
-	public default T getRandom() {
+	default T getRandom() {
 		return FrequenzableUtils.getRandomElementFromList(getDTOList());
 	}
 

@@ -37,11 +37,6 @@ public class NomeManagerMain implements NomeManager {
 	}
 	
 	@Override
-	public NomeDTO getRandom() {
-		return FrequenzableUtils.getRandomElementFromList(nomi);
-	}
-	
-	@Override
 	public NomeDTO getRandomByYear(Integer year) {
 		return getRandomByYearAndSesso(year, null);
 	}

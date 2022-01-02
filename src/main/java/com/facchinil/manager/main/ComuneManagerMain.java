@@ -59,10 +59,8 @@ public class ComuneManagerMain implements ComuneManager {
 	}
 	
 	private ComuneDTO getRandom(boolean updateCoordinate) {
-		ComuneDTO comune = FrequenzableUtils.getRandomElementFromList(comuni);
-		if(!updateCoordinate)
-			return comune;
-		if(comune.getCoordinate() == null) {
+		ComuneDTO comune = ComuneManager.super.getRandom();
+		if(updateCoordinate && comune.getCoordinate() == null) {
 			comune.setCoordinate(geolocManager.getCoordinate(GeolocRequest.builder().idComune(comune.getId()).build()));
 			Comune entity = comuneRepository.getById(comune.getId());
 			entity.setLatitudine(comune.getCoordinate().getLatitudine().doubleValue());
