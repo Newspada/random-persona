@@ -11,7 +11,6 @@ import com.facchinil.dto.DominioDTO;
 import com.facchinil.manager.DominioManager;
 import com.facchinil.mapper.main.DominioMapper;
 import com.facchinil.repository.DominioRepository;
-import com.facchinil.utils.FrequenzableUtils;
 
 @Component
 public class DominioManagerMain implements DominioManager {
@@ -27,12 +26,11 @@ public class DominioManagerMain implements DominioManager {
 	@PostConstruct
 	private void onInit() {
 		domini = dominioMapper.toDTOs(domineRepository.findAll());
-		FrequenzableUtils.fillFrequenzaCumulativa(domini);
 	}
-	
+
 	@Override
-	public DominioDTO getRandom() {
-		return FrequenzableUtils.getRandomElementFromList(domini);
+	public List<DominioDTO> getDTOList() {
+		return domini;
 	}
 
 }

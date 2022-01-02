@@ -11,7 +11,6 @@ import com.facchinil.dto.FasciaEtaDTO;
 import com.facchinil.manager.FasciaEtaManager;
 import com.facchinil.mapper.main.FasciaEtaMapper;
 import com.facchinil.repository.FasciaEtaRepository;
-import com.facchinil.utils.FrequenzableUtils;
 
 @Component
 public class FasciaEtaManagerMain implements FasciaEtaManager {
@@ -27,12 +26,11 @@ public class FasciaEtaManagerMain implements FasciaEtaManager {
 	@PostConstruct
 	private void onInit() {
 		fasce = dominioMapper.toDTOs(fasceRepository.findAll());
-		FrequenzableUtils.fillFrequenzaCumulativa(fasce);
 	}
 	
 	@Override
-	public FasciaEtaDTO getRandom() {
-		return FrequenzableUtils.getRandomElementFromList(fasce);
+	public List<FasciaEtaDTO> getDTOList() {
+		return fasce;
 	}
 
 }

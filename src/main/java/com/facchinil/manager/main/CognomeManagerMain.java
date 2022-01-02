@@ -11,7 +11,6 @@ import com.facchinil.dto.CognomeDTO;
 import com.facchinil.manager.CognomeManager;
 import com.facchinil.mapper.main.CognomeMapper;
 import com.facchinil.repository.CognomeRepository;
-import com.facchinil.utils.FrequenzableUtils;
 
 @Component
 public class CognomeManagerMain implements CognomeManager {
@@ -27,12 +26,11 @@ public class CognomeManagerMain implements CognomeManager {
 	@PostConstruct
 	private void onInit() {
 		cognomi = nomeMapper.toDTOs(nomeRepository.findAll());
-		FrequenzableUtils.fillFrequenzaCumulativa(cognomi);
 	}
 
 	@Override
-	public CognomeDTO getRandom() {
-		return FrequenzableUtils.getRandomElementFromList(cognomi);
+	public List<CognomeDTO> getDTOList() {
+		return cognomi;
 	}
 
 }

@@ -2,7 +2,6 @@ package com.facchinil.manager;
 
 import com.facchinil.dto.DominioDTO;
 
-public interface DominioManager {
+public interface DominioManager extends FrequenzableRandomManager<DominioDTO>{
 	
-	DominioDTO getRandom();
 }

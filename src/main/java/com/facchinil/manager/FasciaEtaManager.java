@@ -2,7 +2,6 @@ package com.facchinil.manager;
 
 import com.facchinil.dto.FasciaEtaDTO;
 
-public interface FasciaEtaManager {
+public interface FasciaEtaManager extends FrequenzableRandomManager<FasciaEtaDTO>{
 	
-	FasciaEtaDTO getRandom();
 }

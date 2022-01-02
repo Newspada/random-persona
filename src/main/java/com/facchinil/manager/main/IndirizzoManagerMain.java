@@ -32,7 +32,6 @@ public class IndirizzoManagerMain implements IndirizzoManager {
 		String[] toponimi = {"Via", "Viale", "Vicolo", "Largo", "Corso", "Piazza", "Lungomare", "Piazzale", "Galleria"};
 		List<Indirizzo> entities = indirizzoRepository.findByIdComuneAndToponimi(comune.getId(), Arrays.asList(toponimi));
 		List<IndirizzoDTO> indirizzi = indirizzoMapper.toDTOs(entities);
-		FrequenzableUtils.fillFrequenzaCumulativa(indirizzi);
 		return FrequenzableUtils.getRandomElementFromList(indirizzi);
 	}
 	

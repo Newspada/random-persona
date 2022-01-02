@@ -2,8 +2,7 @@ package com.facchinil.manager;
 
 import com.facchinil.dto.ComuneDTO;
 
-public interface ComuneManager {
+public interface ComuneManager extends FrequenzableRandomManager<ComuneDTO>{
 	
 	ComuneDTO getById(Long id);
-	ComuneDTO getRandom();
 }

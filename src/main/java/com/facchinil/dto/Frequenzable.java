@@ -9,7 +9,7 @@ public abstract class Frequenzable implements DataTransferObject {
 	private static final long serialVersionUID = -6576664389851727249L;
 	
 	@JsonIgnore
-	Integer frequenza;
+	private Integer frequenza;
 	@JsonIgnore
-	Integer frequenzaCumulativa;
+	private Integer frequenzaCumulativa;
 }

@@ -41,12 +41,16 @@ public class ComuneManagerMain implements ComuneManager {
                 cap.append(ThreadLocalRandom.current().nextInt(10));
             comune.setCap(cap.toString());
         });
-		FrequenzableUtils.fillFrequenzaCumulativa(comuni);
+	}
+	
+	@Override
+	public List<ComuneDTO> getDTOList() {
+		return comuni;
 	}
 	
 	@Override
 	public ComuneDTO getById(Long id) {
-		return comuni.stream().filter(c -> id.equals(c.getId())).findFirst().orElseThrow(() -> new IllegalStateException("Missing comune with id =" + id));
+		return comuni.stream().filter(c -> id.equals(c.getId())).findFirst().orElseThrow(() -> new IllegalStateException("Cannot find comune with id =" + id));
 	}
 	
 	@Override

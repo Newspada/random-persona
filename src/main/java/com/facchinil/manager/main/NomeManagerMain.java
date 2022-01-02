@@ -29,7 +29,11 @@ public class NomeManagerMain implements NomeManager {
 	@PostConstruct
 	private void onInit() {
 		nomi = nomeMapper.toDTOs(nomeRepository.findAll());
-		FrequenzableUtils.fillFrequenzaCumulativa(nomi);
+	}
+	
+	@Override
+	public List<NomeDTO> getDTOList() {
+		return nomi;
 	}
 	
 	@Override
