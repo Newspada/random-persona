@@ -19,13 +19,13 @@ public class DominioManagerMain implements DominioManager {
 	private DominioMapper dominioMapper;
 	
 	@Autowired
-	private DominioRepository domineRepository;
+	private DominioRepository dominioRepository;
 	
 	private List<DominioDTO> domini;
 	
 	@PostConstruct
 	private void onInit() {
-		domini = dominioMapper.toDTOs(domineRepository.findAll());
+		domini = dominioMapper.toDTOs(dominioRepository.findAll());
 	}
 
 	@Override
